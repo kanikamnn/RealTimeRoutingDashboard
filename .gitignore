@@ -1,0 +1,9 @@
+# Node Specific Files/Folders
+node_modules/
+bower_components/
+
+# Build Specific
+public/
+
+# Sublime 
+*.sublime*

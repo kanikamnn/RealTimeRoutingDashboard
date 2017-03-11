@@ -1,0 +1,78 @@
+$color: hsla(120deg, 100%, 50%, 1);
+
+html,body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body > .main {
+	background-color: $color;
+	height: 100%;
+	width: 100%;
+	/* @keyframes duration | timing-function | delay | 
+   iteration-count | direction | fill-mode | play-state | name */
+	animation: 60s linear infinite background-animate;
+}
+
+.main-topic {
+	position: relative;
+	max-width: 550px;
+  width: 100%;
+  height: 100%;
+  min-width: 300px;
+  padding: 25px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.quotes{
+	position: absolute;
+	width: inherit;
+	padding: 25px;
+	background-color: #fff;
+	border-radius: 3px;
+
+	top: 50%;
+	transform: translate3d(0, -50%, 0);
+	.quote{
+		position: relative;
+		font-size: 1.75rem;
+		p{
+			margin: 0;
+		}
+		.text{
+			font-size: 1em;
+			text-align: right;
+			font-weight: 500;
+			.fa{
+				position: relative;
+		    font-size: 0.5em;
+		    top: -1em;
+			}
+		}
+		.author{
+			font-style: italic;
+			position: relative;
+			text-align: right;
+	    margin-top: 10px;
+	    color: #999;
+	    font-weight: 800;
+	    font-size: 0.7em;
+			&:before{
+				content: "- ";
+			}
+		}
+	}
+}
+
+// Animations
+
+@keyframes background-animate {
+	0% { background-color: $color; }
+	30% { background-color: adjust-hue($color, 120deg); }
+	68% { background-color: adjust-hue($color, 240deg); }
+	100% { background-color: adjust-hue($color, 360deg); }
+}
