@@ -1,0 +1,30 @@
+{
+  "name": "real_time_routing_dashboard",
+  "description": "Simple Full Stack to get Real Time Data fro Azuga LDS Library",
+  "main": "app.js",
+  "authors": [
+    "Subroto Biswas; Kanika Mann"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "reactjs",
+    "babel",
+    "scss",
+    "handlebars",
+    "gulp"
+  ],
+  "homepage": "https://github.com/kanikamnn/RealTimeRoutingDashboard",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "^15.4.2"
+  }
+}
