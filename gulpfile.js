@@ -10,6 +10,7 @@ const gulp = require('gulp'),
 	sourcemaps = require('gulp-sourcemaps'),
 	concat = require('gulp-concat'),
 	scss = require('gulp-sass'),
+	merge = require('merge-stream')
 	browserSync = require('browser-sync').create();
 
 var onError = function(err) {
@@ -29,13 +30,12 @@ gulp.task('scss', function() {
     browsers: ['last 2 versions'],
   };
 
-	return gulp.src("assets/scss/**/*.scss")
+  // Using Wildcards for excluding partial scss files...
+  // http://stackoverflow.com/questions/27689351/how-can-i-use-a-glob-to-ignore-files-that-start-with-an-underscore
+	return gulp.src("assets/scss/**/[^_]*.scss")
 			.pipe(plumber(plumberOptions))
 			.pipe(sourcemaps.init())
 			.pipe(scss())
-			// .on('error', logError => {console.log(logError)}) 
-			// Not Needed now, as the problem is solved by after v2.0 something, 
-			// Check https://github.com/floatdrop/gulp-plumber/issues/32
 			.pipe(autoprefixer(autoprefixerOptions))
 			.pipe(sourcemaps.write('./'))
 			.pipe(gulp.dest('public/css'))
@@ -60,6 +60,42 @@ gulp.task('react', function() {
 	    .pipe(browserSync.stream({match: '**/*.js'}))
 });
 
+gulp.task('combined-js', function() {
+	// Following are the folder names for javascript files for each view in their seperate folders...
+	var js = ['index'];
+	var jsx = ['home'];
+	const babelOptions = {
+		presets: ["es2015", "react"]
+	}
+
+ 	var tasks = js.map(function(el){
+  		return gulp.src( 'assets/js/' + el + '/*.js')
+			      .pipe(plumber(plumberOptions))
+				    .pipe(sourcemaps.init())
+				    .pipe(babel(babelOptions))
+				    .pipe(concat( el + ".js" ))
+				    .pipe(sourcemaps.write("."))
+				    .pipe(gulp.dest("public/js/"))
+				    .pipe(browserSync.stream({match: '**/*.js'}))
+  });
+
+ 	// Right now I don't have any jsx to compile...
+  // Array.prototype.push.apply(tasks, jsx.map(function(el) {
+  // 	return gulp.src( 'assets/jsx/' + el + '/*.jsx')
+		// 	      .pipe(plumber(plumberOptions))
+		// 		    .pipe(sourcemaps.init())
+		// 		    .pipe(babel(babelOptions))
+		// 		    .pipe(concat( el + ".js" ))
+		// 		    .pipe(sourcemaps.write("."))
+		// 		    .pipe(gulp.dest("public/js/"))
+		// 		    .pipe(browserSync.stream({match: '**/*.js'}))
+  // }));
+
+  // Found this - http://stackoverflow.com/questions/26784094/can-i-use-a-gulp-task-with-multiple-sources-and-multiple-destinations
+  return merge(tasks);
+
+})
+
 // BrowserSync: https://browsersync.io/docs/gulp
 // Use {server: for static pages} & {proxy: for proxying your localhost page}
 gulp.task('browsersync', function() {
@@ -68,11 +104,11 @@ gulp.task('browsersync', function() {
   browserSync.init(syncOptions);
 });
 
-gulp.task('serve', ['scss', 'react', 'browsersync'], function() {
+gulp.task('serve', ['scss', 'combined-js', 'browsersync'], function() {
 	gulp.watch('assets/scss/**/*.scss', ['scss']);
-	gulp.watch('assets/jsx/**/*.{js,jsx}', ['react']);
+	gulp.watch('assets/**/*.{js,jsx}', ['combined-js']);
 	gulp.watch("views/**/*.hbs").on('change', browserSync.reload);
 });
 
-gulp.task('build', ['scss', 'react']);
+gulp.task('build', ['scss', 'combined-js']);
 gulp.task('default', ["serve"]);

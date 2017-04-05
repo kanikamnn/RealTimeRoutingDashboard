@@ -1,5 +1,6 @@
-const 	express = require('express'),
+const express = require('express'),
 		hbs = require( 'express-handlebars' ),
+    config = require('./config'),
 		app = express();
 
 app.engine( 'hbs', hbs({ 
@@ -14,9 +15,10 @@ app.use(express.static('bower_components'))
 app.set( 'view engine', 'hbs' );
 
 app.get('/', function (req, res) {
-  res.render('home', {
+  res.render('index', {
   	title: 'Real Time Loading',
-  	message: 'Hello World!!!'
+    styles: ['index'],
+  	api_key: config.getGMapsKey()
   });
 })
 

@@ -5,5 +5,11 @@ bower_components/
 # Build Specific
 public/
 
+# Specific Config Files...
+config.js
+
 # Sublime 
 *.sublime*
+
+# Old Code
+old/
