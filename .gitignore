@@ -5,5 +5,13 @@ bower_components/
 # Build Specific
 public/
 
+# Specific Config Files...
+# Problem: Need to create two property files, as one of them will contain secret keys and stuff...
+# BTW best way would be to get them from DB...
+settings.properties
+
 # Sublime 
 *.sublime*
+
+# Old Code
+old/

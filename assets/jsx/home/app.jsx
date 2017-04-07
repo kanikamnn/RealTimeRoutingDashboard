@@ -1,8 +1,8 @@
 
 const { Map, TileLayer, Marker, Popup } = window.ReactLeaflet;
 
-const stamenTonerTiles = 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}.png';
-const stamenTonerAttr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+const stamenTonerTiles = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const stamenTonerAttr = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 const mapCenter = [39.9528, -75.1638];
 const zoomLevel = 12;
 
@@ -27,17 +27,21 @@ class App extends React.Component {
     render() {
         window.console.log('this.state.currentZoomLevel ->', this.state.currentZoomLevel);
 
+        var styles = {
+            width: "100%" ,
+            height: "100%" 
+        }
+
         return (
-            <div>
-                <Map
-                    ref={m => { this.leafletMap = m; }}
-                    center={mapCenter}
-                    zoom={zoomLevel}>
-                    <TileLayer
-                        attribution={stamenTonerAttr}
-                        url={stamenTonerTiles}/>
-                </Map>
-            </div>
+            <Map
+                ref={m => { this.leafletMap = m; }}
+                center={mapCenter}
+                zoom={zoomLevel}
+                style={styles}>
+                <TileLayer
+                    attribution={stamenTonerAttr}
+                    url={stamenTonerTiles}/>
+            </Map>
         );
     }
 }
