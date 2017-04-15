@@ -1,7 +1,22 @@
 @import "main";
 
+// Material Colors
+$red_900: #b71c1c;
+
 div#mapbox{
 	position: absolute;
 	width: 100%;
 	height: 100%;
+}
+
+div#markers{
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	&:hover{
+		cursor: pointer;
+	}
+	&.red{
+		background-color: rgba($red_900, 0.8);
+	}
 }

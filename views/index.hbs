@@ -1,3 +1,6 @@
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.35.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.35.1/mapbox-gl.css' rel='stylesheet' />
+
 {{!-- Everything here is already inside (body -> div.main) container --}}
 <div id="mapbox">
 
@@ -8,5 +11,13 @@
 
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap" async defer></script>
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+<script type="text/javascript">
+/*
+ * All default variables for handlebars goes here...
+ * Can also seperate this as a different file, but will do that later...
+ */
+var apiKey = "{{ api_key }}"
+
+</script>
 <script type="text/javascript" src="js/index.js"></script>

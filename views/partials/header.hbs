@@ -6,7 +6,11 @@
     <title>{{title}}</title>
     {{!-- We will create separate css files for each page, which can be sent from nodejs --}}
     {{#each styles}}
-    	<link rel="stylesheet" href="/css/{{this}}.css" media="screen" title="no title">
+    	<link rel="stylesheet" href="/{{this}}.css" media="screen" title="no title">
+    {{/each}}
+
+    {{#each scripts}}
+      <script src="/{{this}}.js"></script>
     {{/each}}
    
   </head>

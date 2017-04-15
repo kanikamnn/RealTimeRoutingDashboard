@@ -17,8 +17,16 @@ app.set( 'view engine', 'hbs' );
 app.get('/', function (req, res) {
   res.render('index', {
   	title: 'Real Time Loading',
-    styles: ['index'],
-  	api_key: config.getGMapsKey()
+    styles: [
+      'css/index'
+    ],
+    scripts: [
+      'react/react-with-addons.min',
+      'react/react-dom.min',
+      'sockjs-client/dist/sockjs.min',
+      'stomp-websocket/lib/stomp.min'
+    ],
+  	api_key: config.getMapboxPublicKey()
   });
 })
 

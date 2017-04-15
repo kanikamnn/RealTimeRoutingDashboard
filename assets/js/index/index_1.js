@@ -1,15 +1,28 @@
 var marker;
 
-// This function is called back when google maps get flly loaded...
-function initMap() {
-	var myHome = {lat: 12.865700, lng: 77.602418};
-  var map = new google.maps.Map(document.getElementById('mapbox'), {
-    center: myHome,
-    zoom: 15
-  });
+(function(ultimate){
 
-	marker = new google.maps.Marker({
-    position: myHome ,
-    map: map
-  });
-}
+mapboxgl.accessToken = apiKey;
+var myPlace = [77.580768, 12.983405];
+
+ultimate.map = new mapboxgl.Map({
+    container: 'mapbox',
+    center: myPlace,
+    zoom: 13,
+    style: 'mapbox://styles/mapbox/light-v9'
+});
+
+var el = document.createElement('div');
+el.id="markers"
+el.classList.add('red');
+
+var popup = new mapboxgl.Popup({offset: 25})
+    .setText('Construction on the Washington Monument began in 1848.');
+
+// create the marker
+ultimate.marker = new mapboxgl.Marker(el, {offset:[-5, -25]});
+
+ultimate.marker.setLngLat(myPlace)
+    .setPopup(popup) // sets a popup on this marker
+
+})(window)
